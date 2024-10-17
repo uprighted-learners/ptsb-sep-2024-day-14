@@ -118,6 +118,16 @@ async function fetchData() {
     try {
         let response = await fetch("https://jsonplaceholder.typicode.com/todos");
         let json = await response.json();
+
+        // validate the data as an array of objects
+        if (!Array.isArray(json) || json.length === 0 || typeof json[0] !== "object") {
+            throw new Error("Invalid data format");
+        }
+
+        // add the data to local storage
+        localStorage.setItem("todos", JSON.stringify(json));
+
+        // display the data in the console
         console.log(json);
     } catch (error) {
         console.log(error);
