@@ -5,6 +5,8 @@
 // let answer = prompt(`This is the prompt - ${promptText} Is it ${defaultPromptValue}`, defaultPromptValue)
 // console.log("What is thoust nameth?", answer)
 
+// const { response } = require("express");
+
 // // readline node.js example
 // const readline = require('readline');
 // const rl = readline.createInterface({
@@ -92,7 +94,34 @@ function stepThree() {
 }
 
 stepOne()
-    .then(console.log("All steps are complete"))
-    .then(stepThree)
     .then(stepTwo)
+    .then(stepThree)
+    .then(console.log("All steps are complete"))
     .catch(error => console.log(error))
+
+async function doSteps() {
+    await stepOne();
+    await stepTwo();
+    await stepThree();
+    console.log("All steps are complete");
+}
+
+doSteps();
+
+// fetch JSON Placeholder API with Promises
+fetch("https://jsonplaceholder.typicode.com/todos")
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(error => console.log(error))
+
+async function fetchData() {
+    try {
+        let response = await fetch("https://jsonplaceholder.typicode.com/todos");
+        let json = await response.json();
+        console.log(json);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+fetchData();
